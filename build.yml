@@ -1,0 +1,35 @@
+name: Build LM
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release -DLM_COPY_AFTER_BUILD=OFF
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Collect VST3
+        shell: bash
+        run: |
+          mkdir -p artifact
+          find build -name "LM.vst3" -maxdepth 6 -exec cp -R {} artifact/ \;
+
+      - name: Upload VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: LM-VST3-${{ matrix.os }}
+          path: artifact/

@@ -26,9 +26,9 @@ juce_add_plugin(LM
     COPY_PLUGIN_AFTER_BUILD ${LM_COPY_AFTER_BUILD})
 
 target_sources(LM PRIVATE
-    Source/PluginProcessor.cpp
-    Source/PluginProcessor.h
-    Source/Dsp.h)
+    PluginProcessor.cpp
+    PluginProcessor.h
+    Dsp.h)
 
 target_compile_definitions(LM PUBLIC
     JUCE_WEB_BROWSER=0

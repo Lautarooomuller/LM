@@ -153,7 +153,7 @@ public:
         if (! p.on) return;
 
         const int n = b.getNumSamples(), nc = std::min (b.getNumChannels(), kMaxCh);
-        auto** d = b.getArrayOfWritePointers();
+        auto d = b.getArrayOfWritePointers();
 
         const float thrLin = dbToLin (p.thr), closeLin = dbToLin (p.thr - 4.0f);
         const float rangeLin = dbToLin (p.range);
@@ -222,7 +222,7 @@ public:
 
         const float g = dbToLin (p.gainDb);
         const int n = b.getNumSamples(), nc = std::min (b.getNumChannels(), kMaxCh);
-        auto** d = b.getArrayOfWritePointers();
+        auto d = b.getArrayOfWritePointers();
 
         for (int i = 0; i < n; ++i)
             for (int ch = 0; ch < nc; ++ch)
@@ -267,7 +267,7 @@ public:
         air.set  (Biquad::HighShelf, sr, 12000.0, 0.7071, 2.0 * p.amt);
 
         const int n = b.getNumSamples(), nc = std::min (b.getNumChannels(), kMaxCh);
-        auto** d = b.getArrayOfWritePointers();
+        auto d = b.getArrayOfWritePointers();
 
         for (int i = 0; i < n; ++i)
             for (int ch = 0; ch < nc; ++ch)
@@ -312,7 +312,7 @@ public:
         hp2.set (Biquad::HighPass, sr, p.freq, 0.7071, 0.0);
 
         const int n = b.getNumSamples(), nc = std::min (b.getNumChannels(), kMaxCh);
-        auto** d = b.getArrayOfWritePointers();
+        auto d = b.getArrayOfWritePointers();
         const float attC = coefMs (0.5f, sr), relC = coefMs (40.0f, sr);
 
         for (int i = 0; i < n; ++i)
@@ -372,7 +372,7 @@ public:
         if (useNas)  nas.set  (Biquad::Peak, sr, p.nasF,  p.nasQ,  p.nasG);
 
         const int n = b.getNumSamples(), nc = std::min (b.getNumChannels(), kMaxCh);
-        auto** d = b.getArrayOfWritePointers();
+        auto d = b.getArrayOfWritePointers();
 
         for (int i = 0; i < n; ++i)
             for (int ch = 0; ch < nc; ++ch)
@@ -407,7 +407,7 @@ public:
         if (! p.on) return;
 
         const int n = b.getNumSamples(), nc = std::min (b.getNumChannels(), kMaxCh);
-        auto** d = b.getArrayOfWritePointers();
+        auto d = b.getArrayOfWritePointers();
 
         const float rmsC  = coefMs (10.0f, sr);
         const float attC  = coefMs (p.att, sr);
@@ -488,7 +488,7 @@ public:
         }
 
         const int n = b.getNumSamples(), nc = std::min (b.getNumChannels(), kMaxCh);
-        auto** d = b.getArrayOfWritePointers();
+        auto d = b.getArrayOfWritePointers();
 
         for (int i = 0; i < n; ++i)
             for (int ch = 0; ch < nc; ++ch)
